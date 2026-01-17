@@ -18,9 +18,15 @@ def train_models(df):
     imputer = SimpleImputer(strategy="mean")
     X = imputer.fit_transform(X)
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
-    )
+    split_index = int(len(X) * 0.8)
+
+    X_train = X[:split_index]
+    X_test = X[split_index:]
+
+    y_train = y[:split_index]
+    y_test = y[split_index:]
+
+
 
     models = {
         "Linear Regression": LinearRegression(),
@@ -29,9 +35,11 @@ def train_models(df):
             random_state=42
         ),
         "XGBoost": XGBRegressor(
-            n_estimators=200,
-            learning_rate=0.1,
-            max_depth=6,
+            n_estimators=100,
+            max_depth=3,
+            learning_rate=0.05,
+            subsample=0.8,
+            colsample_bytree=0.8,
             random_state=42
         )
     }

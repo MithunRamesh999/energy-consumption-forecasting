@@ -17,5 +17,5 @@ def create_features(df):
         .rolling(window=24, min_periods=1)
         .mean()
     )
-
+    df = df.dropna().reset_index(drop=True)
     return df

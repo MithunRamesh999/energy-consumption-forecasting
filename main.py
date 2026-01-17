@@ -29,7 +29,16 @@ models, X_test, y_test, imputer = train_models(df)
 # --------------------------------------------------
 print("\nModel Performance Results:")
 for name, model in models.items():
-    mae, rmse, r2 = evaluate_model(model, X_test, y_test)
+    metrics = evaluate_model(model, X_test, y_test)
+
+    mae = metrics["Model_MAE"]
+    rmse = metrics["Model_RMSE"]
+    r2 = metrics["Model_R2"]
+
+    baseline_mae = metrics["Baseline_MAE"]
+    baseline_rmse = metrics["Baseline_RMSE"]
+    baseline_r2 = metrics["Baseline_R2"]
+    
     print(f"\n{name}")
     print(f"MAE: {mae:.2f}")
     print(f"RMSE: {rmse:.2f}")
